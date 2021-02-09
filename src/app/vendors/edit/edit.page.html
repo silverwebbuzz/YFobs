@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="modalClose()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Edit Vendor</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="VendorsData" class="form_">
+
+    <div class="div_import">
+      <ion-button expand="full" shape="round" fill="outline" class="btn_import" (click)="fnContactphone()">Import From
+        Contacts
+      </ion-button>
+    </div>
+
+    <!-- <ng-autocomplete [data]="vendors" [searchKeyword]="keyword" placeHolder="Vendor Name"
+      (selected)='selectEvent($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+      formControlName="name">
+    </ng-autocomplete>
+
+    <ng-template #itemTemplate let-item>
+      <div class="div_data">
+        <a [innerHTML]="item.name" class="name_data"></a>
+        <a [innerHTML]="item.phone" class="phn_data"></a>
+      </div>
+    </ng-template> -->
+
+    <ion-item no-padding lines="none" class="items_ shadow_input">
+      <ion-input type="text" placeholder="Vendor Name" formControlName="name" class="input_">
+      </ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="VendorsData.controls.name.hasError('required') && VendorsData.controls.name.touched">
+      <p class="content">Please Enter Vendor Name!</p>
+    </ion-item> 
+
+    <ion-item no-padding lines="none" class="items_ shadow_input">
+      <ion-input type="number" placeholder="Phone" formControlName="phone" class="input_">
+      </ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="VendorsData.controls.phone.hasError('required') && VendorsData.controls.phone.touched">
+      <p class="content">Please Enter Phone!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="!VendorsData.get('phone').errors?.pattern && VendorsData.get('phone').errors?.minlength  &&   VendorsData.get('phone').touched">
+      <p class="content">Please Enter Valid Phone number!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="items_ shadow_input">
+      <ion-input type="email" placeholder="Email" formControlName="email" class="input_"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="VendorsData.controls.email.hasError('required') && VendorsData.controls.email.touched">
+      <p class="content">Please Enter Email!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="VendorsData.controls.email.hasError('pattern') && VendorsData.controls.email.touched">
+      <p class="content">Please Enter Valid Email!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="items_ shadow_input">
+      <ion-input type="text" placeholder="Address" formControlName="address" class="input_"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="VendorsData.controls.address.hasError('required') && VendorsData.controls.address.touched">
+      <p class="content">Please Enter Address!</p>
+    </ion-item>
+
+    <div class="div_btn">
+      <ion-button expand="full" size="large" shape="round" class="btn_ shadow_btn" (click)="fnAddVendor()">Save
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

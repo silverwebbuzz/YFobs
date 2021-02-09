@@ -1,0 +1,45 @@
+<ion-content>
+  <div class="div_main">
+    <div class="div_img">
+      <img class="img_" src="../../assets/imgs/logo1.png">
+    </div>
+    <ion-label class="lbl_join">Join Now</ion-label>
+  </div>
+
+  <form [formGroup]="SignInForm" class="form_">
+
+    <ion-item no-padding lines="none" class="item_ shadow_input">
+      <ion-icon slot="start" src="../../../assets/imgs/in.svg" class="flag_"></ion-icon>
+      <span class="lbl_91">+91</span>
+      <ion-input type="tel" (keypress)="numberonly.FnNumberOnly($event)" minlength="10" maxlength="10" pattern="^[0-9]+$" placeholder="Phone Number" formControlName="phone"  class="input_">
+      </ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="SignInForm.controls.phone.hasError('required') && SignInForm.controls.phone.touched">
+      <p class="content">Please Enter Phone number!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+    *ngIf="!SignInForm.get('phone').errors?.pattern && SignInForm.get('phone').errors?.minlength  &&   SignInForm.get('phone').touched">
+      <p class="content">Please Enter Valid Phone number!</p>
+    </ion-item>
+
+    <div class="div_btn">
+      <ion-button expand="block" shape="round" class="btn_ shadow_btn" (click)="fnSignin()">Sign In</ion-button>
+    </div>
+
+  </form>
+
+</ion-content>
+
+<ion-footer>
+  <ion-row class="row_">
+    <ion-col size="6" class="col_secure">
+      <img src="../../assets/imgs/secure-logo.png" class="img_secure"/>
+    </ion-col>
+    <ion-col size="6" class="col_india">
+      <img src="../../assets/imgs/made-with-pride-in-india-logo-809449EC9E-seeklogo.com.png" class="img_india"/>
+    </ion-col>
+  </ion-row>
+</ion-footer>

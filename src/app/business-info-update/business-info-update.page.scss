@@ -1,0 +1,123 @@
+ion-content {
+  --keyboard-offset: 0px !important;
+  .div_img {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    box-shadow: 0 0 4px var(--ion-color-medium);
+    .img_ {
+      height: 100px;
+      width: 100px;
+      object-fit: fill;
+    }
+    .lbl_ {
+      display: block;
+      font-size: 14px;
+      text-align: center;
+      line-height: 7;
+    }
+  }
+  .form_ {
+    margin: 32px 0px;
+    .item_ {
+      --background: var(--ion-color-light);
+      border-radius: 24px;
+      width: 84%;
+      margin: 0 auto;
+      --padding-start: 24px;
+      --inner-padding-end: 12px;
+      margin-top: 16px;
+      .input_ {
+        background: var(--ion-color-light);
+        font-size: 14px;
+        color: var(--ion-color-dark);
+      }
+      .dropWidth_ {
+        font-size: 14px;
+        color: var(--ion-color-dark);
+        min-width: 100%;
+        --padding-start: 0px;
+        --padding-end: 6px;
+        --placeholder-opacity: 0.5;
+      }
+      .date_ {
+        color: var(--ion-color-dark);
+        font-size: 14px;
+        width: 100%;
+        --padding-top: 4px;
+        --padding-end: 0px;
+        --padding-bottom: 4px;
+        --padding-start: 0px;
+      }
+    }
+    .div-que {
+      padding: 16px 16px 0px 16px;
+      width: 84%;
+      margin: 0 auto;
+      .lbl-head {
+        font-size: 14px;
+        font-weight: bold;
+        display: block;
+        color: var(--ion-color-dark);
+      }
+      .items-radio {
+        display: inline-block;
+        --padding-start: 0px;
+        --background-activated: transparent;
+        --background-focused: transparent;
+        .lbl-radio {
+          font-weight: bold;
+          font-size: 14px;
+          color: var(--ion-color-dark);
+        }
+        .radio_ {
+          margin-inline-end: 8px;
+        }
+      }
+    }
+    .div_btn {
+      margin: 32px 0px;
+      .btn_ {
+        width: 84%;
+        margin: 0 auto;
+        font-size: 14px;
+      }
+    }
+  }
+}
+.top_ {
+  margin-top: 0px !important;
+}
+.div_profile {
+  margin-top: 16px !important;
+  margin-bottom: 16px !important;
+  text-align: center;
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  box-shadow: 0 2px 4px var(--ion-color-light-shade);
+  border-radius: 8px;
+  .img_profile {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    object-fit: fill;
+    // border: 5px solid #fff;
+    // box-shadow: 0px 0px 6px #ccc;
+  }
+}
+.btn-choose {
+  position: absolute;
+  top: 0%;
+  opacity: 0;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  height: 100px;
+  width: 100px;
+}
+// li-ionic4-datepicker{
+//     margin: 0px -80px 0px 0px;
+//     margin-left: 25px;
+// }

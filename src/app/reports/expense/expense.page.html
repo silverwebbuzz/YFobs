@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Expense</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="div_scroll" *ngIf="expenseReports?.length > 0">
+    <table>
+      <div class="div_heads">
+        <tr>
+          <th class="lbl_head">#</th>
+          <th class="lbl_head">Vendors</th>
+          <th class="lbl_head">Tax</th>
+          <th class="lbl_head">Amount</th>
+          <th class="lbl_head">Net Amount</th>
+          <th class="lbl_head">Date</th>
+        </tr>
+        <ng-container *ngFor="let report of expenseReports; let r = index">
+          <ng-container>
+            <tr>
+              <ng-container>
+                <td class="lbl_entry">{{r + 1}}</td>
+                <td class="lbl_entry">{{report.vendor_name}}</td>
+                <td class="lbl_entry">{{report.tax}}<span *ngIf="tax">%</span></td>
+                <td class="lbl_entry">{{report.amount | number:'2.2'}}</td>
+                <td class="lbl_entry">{{report.net_amount | number:'2.2'}}</td>
+                <td class="lbl_entry">{{report.date}}</td>
+              </ng-container>
+            </tr>
+          </ng-container>
+          
+        </ng-container>
+        <ng-container>
+          <tr>
+            <td class="lbl_gross"></td>
+            <th class="lbl_gross"><strong></strong></th>
+            <td class="lbl_gross">{{tax}}<span *ngIf="tax">%</span></td>
+            <td class="lbl_gross">{{amount | number:'2.2'}}</td>
+            <td class="lbl_gross">{{net_amount | number:'2.2'}}</td>
+            <td class="lbl_gross"></td>
+          </tr>
+
+        </ng-container>
+
+        <!-- Gross Total Row -->
+        <!-- <ng-container *ngIf="grossTotal">
+          <tr>
+            <td class="lbl_gross" colspan="7"></td>
+            <th class="lbl_gross"><strong>Gross Total</strong></th>
+            <td class="lbl_gross">{{grossTotal.grossAmount}}</td>
+            <td class="lbl_gross">{{grossTotal.grossAmount}}</td>
+            <td class="lbl_gross">-</td>
+            <td class="lbl_gross">{{grossTotal.gross_sgst_price}}</td>
+            <td class="lbl_gross">-</td>
+            <td class="lbl_gross">{{grossTotal.gross_cgst_price}}</td>
+            <td class="lbl_gross">-</td>
+            <td class="lbl_gross">{{grossTotal.gross_igst_price}}</td>
+          </tr>
+        </ng-container> -->
+      </div>
+    </table>
+  </div>
+
+</ion-content>

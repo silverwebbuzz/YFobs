@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Customers</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="loadData(true, $event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <div class="isEmpty" *ngIf="customers?.length == 0 || customers == null">
+    <ion-label class="lbl_empty">No Record Found!</ion-label>
+  </div>
+  
+  <!-- All Expense Start -->
+    <div>
+      <ion-searchbar placeholder="Search..." class="search_" (ionChange)="searchBar($event.target.value)"></ion-searchbar>
+      <div class="div_list">
+        <div class="div_row" *ngFor="let opt of customers; let i = index">
+          <ion-row class="row_list">
+            <ion-col size="7" class="col_list">
+              <ion-label class="lbl_name">{{opt.name}}</ion-label>
+            </ion-col>
+            <ion-col size="5" class="col_list right_">
+              <ion-icon name="create" class="more_" (click)="editCust(opt.id)"></ion-icon>
+              <ion-icon name="trash" class="icon_" (click)="delete(opt.id)"></ion-icon>
+            </ion-col>
+          </ion-row>
+          <ion-row class="row_list row_">
+            <ion-col size="7" class="col_list">
+              <ion-label class="lbl_no">{{opt.country_name}} {{opt.currency_code}} - {{opt.currency_name}} ({{opt.currency_symbol}})</ion-label>
+            </ion-col>
+            <ion-col size="5" class="col_list right_">
+              <ion-label class="lbl_date">{{opt.created_at | date: 'yyyy-MM-dd'}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="row_list">
+            <ion-col size="7" class="col_list">
+              <ion-label class="lbl_total">{{opt.email}}</ion-label>
+            </ion-col>
+            <ion-col size="5" class="col_list right_">
+              <ion-label class="lbl_total">{{opt.phone}}</ion-label>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    
+    <!-- All Invoice Tab Start -->
+  </div>
+
+  <!-- Create Invoice Button -->
+  <div class="div_fab">
+    <ion-button shape="round" size="large" class="btn_ shadow_btn" (click)="addCust()">
+      <ion-icon name="add-circle" class="btn_icon"></ion-icon>Add Customer
+    </ion-button>
+  </div>
+
+</ion-content>

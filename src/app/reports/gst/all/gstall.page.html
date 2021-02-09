@@ -1,0 +1,107 @@
+
+
+      <div class="div_scroll">
+        <table>
+          <div class="div_heads">
+            <tr>
+              <th class="lbl_head" colspan="0" rowspan="2">#</th>
+              <th class="lbl_head" colspan="0" rowspan="2">Customer</th>
+              <th class="lbl_head" colspan="0" rowspan="2">Status</th>
+              <th class="lbl_head" colspan="0" rowspan="2">GSTIN</th>
+              <th class="lbl_head" colspan="0" rowspan="2">Invoice Date</th>
+              <th class="lbl_head" colspan="0" rowspan="2">Invoice No.</th>
+              <th class="lbl_head" colspan="0" rowspan="2">Invoice Value</th>
+              <th class="lbl_head" colspan="0" rowspan="2">Item</th>
+              <th class="lbl_head" colspan="0" rowspan="2">Amount</th>
+              <th class="lbl_head" colspan="0" rowspan="2">Taxable Amount</th>
+              <th class="lbl_head" colspan="2">SGST</th>
+              <th class="lbl_head" colspan="2">CGST</th>
+              <th class="lbl_head" colspan="2">IGST</th>
+            </tr>
+            <tr>
+              <th class="lbl_head">%</th>
+              <th class="lbl_head">Amount</th>
+              <th class="lbl_head">%</th>
+              <th class="lbl_head">Amount</th>
+              <th class="lbl_head">%</th>
+              <th class="lbl_head">Amount</th>
+            </tr>
+            <ng-container *ngFor="let report of gstAllReports; let r = index">
+              <ng-container *ngFor="let item of report.items; let i = index">
+                <tr>
+                  <ng-container *ngIf="i == 0">
+                    <td class="lbl_entry">{{r + 1}}</td>
+                    <td class="lbl_entry">{{report.customer_name}}</td>
+                    <td class="lbl_entry">
+                      <ng-container *ngIf="report.status == 1">Unpaid</ng-container>
+                      <ng-container *ngIf="report.status == 2">Paid</ng-container>
+                      <ng-container *ngIf="report.status == 0">Draft</ng-container>
+                    </td>
+                    <td class="lbl_entry">GSTIN</td>
+                    <td class="lbl_entry">{{report.date}}</td>
+                    <td class="lbl_entry">{{report.number}}</td>
+                    <td class="lbl_entry">{{report.grand_total}}</td>
+                    <!-- Item First Row -->
+                    <td class="lbl_entry">{{item.item_name}}</td>
+                    <td class="lbl_entry">{{item.discount_price}}</td>
+                    <td class="lbl_entry">{{item.discount_price}}</td>
+                    <td class="lbl_entry">{{item.sgst_rate}}</td>
+                    <td class="lbl_entry">{{item.sgst_price}}</td>
+                    <td class="lbl_entry">{{item.cgst_rate}}</td>
+                    <td class="lbl_entry">{{item.cgst_price}}</td>
+                    <td class="lbl_entry">{{item.igst_rate}}</td>
+                    <td class="lbl_entry">{{item.igst_price}}</td>
+                  </ng-container>
+                </tr>
+                <!-- Item Second Row -->
+                <ng-container *ngIf="i > 0">
+                  <td class="lbl_entry" rowspan="report.items.length - 1"  colspan="7"></td>
+                  <td class="lbl_entry">{{item.item_name}}</td>
+                  <td class="lbl_entry">{{item.discount_price}}</td>
+                  <td class="lbl_entry">{{item.discount_price}}</td>
+                  <td class="lbl_entry">{{item.sgst_rate}}</td>
+                  <td class="lbl_entry">{{item.sgst_price}}</td>
+                  <td class="lbl_entry">{{item.cgst_rate}}</td>
+                  <td class="lbl_entry">{{item.cgst_price}}</td>
+                  <td class="lbl_entry">{{item.igst_rate}}</td>
+                  <td class="lbl_entry">{{item.igst_price}}</td>
+                </ng-container>
+              </ng-container>
+
+              <!-- Item Total Row -->
+              <ng-container *ngIf="report.subTotal">
+                <tr>
+                  <td class="lbl_total" colspan="7"></td>
+                  <th class="lbl_total"><strong>Total</strong></th>
+                  <td class="lbl_total">{{report.subTotal.discount_price_total}}</td>
+                  <td class="lbl_total">{{report.subTotal.discount_price_total}}</td>
+                  <td class="lbl_total">-</td>
+                  <td class="lbl_total">{{report.subTotal.total_sgst_price}}</td>
+                  <td class="lbl_total">-</td>
+                  <td class="lbl_total">{{report.subTotal.total_cgst_price}}</td>
+                  <td class="lbl_total">-</td>
+                  <td class="lbl_total">{{report.subTotal.total_igst_price}}</td>
+                </tr>
+              </ng-container>
+
+            </ng-container>
+
+            <!-- Gross Total Row -->
+            <ng-container *ngIf="grossTotal">
+              <tr>
+                <td class="lbl_gross" colspan="7"></td>
+                <th class="lbl_gross"><strong>Gross Total</strong></th>
+                <td class="lbl_gross">{{grossTotal.grossAmount}}</td>
+                <td class="lbl_gross">{{grossTotal.grossAmount}}</td>
+                <td class="lbl_gross">-</td>
+                <td class="lbl_gross">{{grossTotal.gross_sgst_price}}</td>
+                <td class="lbl_gross">-</td>
+                <td class="lbl_gross">{{grossTotal.gross_cgst_price}}</td>
+                <td class="lbl_gross">-</td>
+                <td class="lbl_gross">{{grossTotal.gross_igst_price}}</td>
+              </tr>
+            </ng-container>
+          </div>
+        </table>
+      </div>
+

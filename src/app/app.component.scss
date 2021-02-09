@@ -1,0 +1,148 @@
+.active {
+  --background: var(--ion-color-secondary) !important;
+  ion-icon {
+    color: var(--ion-color-primary);
+  }
+  ion-label {
+    color: var(--ion-color-primary);
+  }
+}
+
+.active-parent {
+  font-weight: 500;
+}
+
+.sub-item {
+  padding-left: 20px;
+}
+
+.card-profile {
+  height: 100px;
+  .row_profile {
+    height: 100px;
+    .col_profile {
+      padding: 0;
+      margin: auto;
+      .div_logo {
+        height: 68px;
+        width: 68px;
+        text-align: center;
+        margin: auto;
+        border-radius: 50px;
+        box-shadow: 0 2px 4px var(--ion-color-light-shade);
+        .img_profile{
+          width: 68px;
+          height: 68px;
+          object-fit: fill;
+          border-radius: 50px;
+        }
+        .img_logo {
+          height: 50px;
+          width: 50px;
+          object-fit: cover;
+        }
+        .lbl_txt {
+          display: block;
+          color: var(--ion-color-primary);
+          font-size: 12px;
+          font-weight: bold;
+        }
+      }
+      .lbl_BName {
+        display: block;
+        font-size: 16px;
+        padding: 2px 0px;
+        color: var(--ion-color-primary);
+        font-weight: bold;
+      }
+      .lbl_UName {
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 2px 0px;
+        color: var(--ion-color-dark);
+      }
+      .lbl_Email {
+        display: block;
+        font-size: 12px;
+        padding: 2px 0px;
+        color: var(--ion-color-dark);
+      }
+    }
+  }
+}
+.head-tool {
+  --padding-start: 0px;
+  --padding-bottom: 0px;
+  --padding-top: 0px;
+  --padding-end: 0px;
+  border-bottom: 4px solid var(--ion-color-light);
+}
+
+.items {
+  --min-height: 40px;
+  height: 44px;
+  .title_ {
+    display: block;
+    font-size: 14px;
+    --color: var(--ion-color-dark);
+  }
+}
+
+.spc-menu {
+  margin-bottom: 0px;
+}
+
+.icon-end {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.spc_icon {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.right_ {
+  text-align: center;
+}
+.left_ {
+  padding-left: 8px !important;
+}
+.hr_ {
+  border-bottom: 4px solid var(--ion-color-light);
+}
+ion-footer {
+  padding: 8px;
+  .div_bottom {
+    padding: 16px 0px;
+    text-align: center;
+    .logo_ {
+      width: 100px;
+    }
+    .lbl_ {
+      display: block;
+      font-size: 10px;
+      color: var(--ion-color-dark);
+    }
+  }
+  .row_ {
+    .col_secure {
+      padding: 0px;
+      margin-top: auto;
+      margin-bottom: auto;
+      text-align: right;
+      .img_secure {
+        width: 64%;
+      }
+    }
+    .col_india {
+      padding: 0px;
+      margin-top: auto;
+      margin-bottom: auto;
+      text-align: left;
+      .img_india {
+        width: 64%;
+      }
+    }
+  }
+}

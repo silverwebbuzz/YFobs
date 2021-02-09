@@ -1,0 +1,8 @@
+<div class="bell_">
+  <ion-buttons>
+    <ion-button fill="clear" (click)="notification()">
+      <ion-icon name="notifications-outline"></ion-icon>
+    </ion-button>
+    <div class="on_" *ngIf="this.notify.getNotificationStatus()"></div>
+  </ion-buttons>
+</div>

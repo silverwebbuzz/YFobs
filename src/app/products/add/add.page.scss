@@ -1,0 +1,37 @@
+ion-content {
+    --padding-bottom: 16px;
+    --keyboard-offset: 0px !important;
+    .form_ {
+      margin: 0px 0px;
+      position:relative;
+      .items_ {
+        --background: var(--ion-color-light);
+        width: 84%;
+        border-radius: 24px;
+        margin: 0 auto;
+        --padding-start: 24px;
+        --inner-padding-end: 12px;
+        margin-top: 16px !important;
+        .input_{
+          font-size: 14px;
+          color: var(--ion-color-dark);
+        }
+        .dropWidth_ {
+            font-size: 14px;
+          min-width: 100%;
+          --padding-start: 0px;
+          --padding-end: 6px;
+          --placeholder-opacity: 0.5;
+        }
+      }
+    }
+  }
+ion-footer{
+    .div_btn {
+        margin: 0px 0px 0px 0px;
+        .btn_ {
+          margin: 0;
+          font-size: 14px;
+        }
+      }
+}

@@ -1,0 +1,88 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-android-support-gradle-release": {
+      "ANDROID_SUPPORT_VERSION": "27.+",
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "cordova-plugin-androidx": {
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "cordova-plugin-androidx-adapter": {
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "cordova-plugin-apprate": {
+      "PLAY_CORE_VERSION": "1.+",
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "cordova-plugin-camera": {
+      "ANDROID_SUPPORT_V4_VERSION": "27.+",
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "cordova-plugin-contacts": {
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "cordova-plugin-file-opener2": {
+      "ANDROID_SUPPORT_V4_VERSION": "27.+",
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "cordova-plugin-ionic-keyboard": {
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "cordova-plugin-ionic-webview": {
+      "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+",
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "cordova-plugin-printer": {
+      "ANDROID_SUPPORT_V4_VERSION": "28.+",
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "cordova-plugin-qrscanner": {
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "cordova-plugin-screen-orientation": {
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "cordova-plugin-x-socialsharing": {
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "cordova-sqlite-storage": {
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "onesignal-cordova-plugin": {
+      "PACKAGE_NAME": "com.com.yfobs"
+    }
+  },
+  "dependent_plugins": {
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "cordova-plugin-nativestorage": {
+      "PACKAGE_NAME": "com.com.yfobs"
+    },
+    "es6-promise-plugin": {
+      "PACKAGE_NAME": "com.com.yfobs"
+    }
+  }
+}

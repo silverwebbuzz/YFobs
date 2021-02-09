@@ -1,0 +1,90 @@
+ion-content {
+  .div_main {
+    height: 200px;
+    padding: 28px;
+    .div_img {
+      height: 100px;
+      width: 100px;
+      margin: 0 auto;
+      background: var(--ion-color-light);
+      box-shadow: 0 4px 4px var(--ion-color-light-shade);
+      border-radius: 50px;
+      padding: 26px 21px;
+      text-align: center;
+      .img_ {
+        height: 48px;
+        padding-left: 6px;
+      }
+    }
+    .lbl_join {
+      display: block;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      padding: 16px 0px;
+      color: var(--ion-color-primary);
+    }
+  }
+  .form_ {
+    margin: 16px 0px;
+    .item_ {
+      --background: var(--ion-color-light);
+      border-radius: 24px;
+      width: 84%;
+      margin: 0 auto;
+      --padding-start: 24px;
+      --inner-padding-end: 12px;
+      .flag_{
+        font-size: 20px;
+        margin-right: 12px;
+      }
+      .lbl_91{
+        font-size: 14px;
+        color: var(--ion-color-dark);
+      }
+      .lbl_91{
+        font-size: 14px;
+        color: var(--ion-color-dark);
+      }
+      .input_ {
+        background: var(--ion-color-light);
+        font-size: 14px;
+        color: var(--ion-color-dark);
+        --padding-start: 8px;
+      }
+    }
+    .div_btn {
+      margin: 32px 0px;
+      .btn_ {
+        height: 44px;
+        width: 84%;
+        margin: 0 auto;
+        font-size: 14px;
+      }
+    }
+  }
+}
+ion-footer {
+  padding: 8px;
+  background: var(--ion-color-primary-contrast);
+  .row_ {
+    .col_secure {
+      padding: 0px;
+      margin-top: auto;
+      margin-bottom: auto;
+      text-align: right;
+      .img_secure {
+        width: 75%;
+      }
+    }
+    .col_india {
+      padding: 0px;
+      margin-top: auto;
+      margin-bottom: auto;
+      text-align: left;
+      .img_india {
+        width: 75%;
+      }
+    }
+  }
+}

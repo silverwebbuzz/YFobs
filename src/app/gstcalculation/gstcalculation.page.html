@@ -1,0 +1,141 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>GST Calculate</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="div_top">
+    <ion-row class="row_date">
+      <ion-col size="6" class="col_date right_">
+        <ion-item no-padding lines="none" class="item_drop">
+          <ion-input type="number" placeholder="Amount" class="input_" (ionChange)="loadAmount($event,'amount')">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6" class="col_date left_">
+        <ion-item no-padding lines="none" class="item_drop">
+          <ion-select interface="action-sheet" placeholder="Tax Value" class="dropWidth_" mode="md"
+            (ionChange)="loadAmount($event,'tax')">
+            <ion-select-option value="0">0%</ion-select-option>
+            <ion-select-option value="5">5%</ion-select-option>
+            <ion-select-option value="12">12%</ion-select-option>
+            <ion-select-option value="18">18%</ion-select-option>
+            <ion-select-option value="28">28%</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div class="div_tax">
+    <ion-label class="lbl_tax">Exclusive Tax</ion-label>
+    <div class="hr_"></div>
+    <ion-row class="row_tax">
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_L">Original Amount :</ion-label>
+      </ion-col>
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_R">{{orignal_amount}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row_tax">
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_L">Tax :</ion-label>
+      </ion-col>
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_R">{{tax ? tax : 0}}%</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row_tax">
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_L">CGST Amount :</ion-label>
+      </ion-col>
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_R">{{gst / 2 ? gst / 2 : ''}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row_tax">
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_L">SGST Amount :</ion-label>
+      </ion-col>
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_R">{{gst / 2 ? gst / 2 : ''}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row_tax">
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_L">IGST Amount :</ion-label>
+      </ion-col>
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_R">{{gst ? gst : ''}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row_tax">
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_L">Total Amount :</ion-label>
+      </ion-col>
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_R">{{total_amount}}</ion-label>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div class="div_tax">
+    <ion-label class="lbl_tax">Inclusive Tax</ion-label>
+    <div class="hr_"></div>
+    <ion-row class="row_tax">
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_L">Original Amount :</ion-label>
+      </ion-col>
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_R">{{invoice_orignal_amount}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row_tax">
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_L">Tax :</ion-label>
+      </ion-col>
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_R">{{tax ? tax : 0}}%</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row_tax">
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_L">CGST Amount :</ion-label>
+      </ion-col>
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_R">{{gst / 2 ? gst / 2 : ''}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row_tax">
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_L">SGST Amount :</ion-label>
+      </ion-col>
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_R">{{gst / 2 ? gst / 2 : ''}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row_tax">
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_L">IGST Amount :</ion-label>
+      </ion-col>
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_R">{{gst ? gst : ''}}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row_tax">
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_L">Total Amount :</ion-label>
+      </ion-col>
+      <ion-col size="6" class="col_tax">
+        <ion-label class="lbl_R">{{orignal_amount}}</ion-label>
+      </ion-col>
+    </ion-row>
+  </div>
+
+</ion-content>

@@ -1,0 +1,37 @@
+.div_scroll {
+  overflow-x: scroll;
+  white-space: nowrap;
+  .div_heads {
+    .lbl_head {
+      font-size: 14px;
+      font-weight: bold;
+      padding: 8px 8px;
+      color: var(--ion-color-primary-contrast);
+      background: var(--ion-color-primary);
+      border: 0.5px solid var(--ion-color-primary-contrast);
+      vertical-align: middle;
+    }
+    .lbl_entry {
+      font-size: 14px;
+      padding: 8px 8px;
+      color: var(--ion-color-dark);
+      background: var(--ion-color-light-shade);
+      border: 0.5px solid var(--ion-color-primary-contrast);
+    }
+    .lbl_total {
+      font-size: 14px;
+      padding: 8px 8px;
+      color: var(--ion-color-dark);
+      background: var(--ion-color-secondary);
+      border: 0.5px solid var(--ion-color-primary-contrast);
+    }
+    .lbl_gross{
+      font-size: 14px;
+      font-weight: bold;
+      padding: 8px 8px;
+      color: var(--ion-color-primary-contrast);
+      background: var(--ion-color-primary);
+      border: 0.5px solid var(--ion-color-primary-contrast);
+    }
+  }
+}

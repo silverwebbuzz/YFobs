@@ -1,0 +1,163 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit Business</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"> &nbsp; </ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="loadData(true, $event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <form [formGroup]="BusinessDataUpdate" class="form_">
+    <div class="div_profile">
+      <img *ngIf="!businessLogo" src="{{defaultPlaceholder}}" class="img_profile" />
+      <img *ngIf="businessLogo" src="{{businessLogoUrl ? businessLogo : imageUrl + businessLogo}}"
+        class="img_profile" />
+      <input class="btn-choose" type="file" formControlName="image" (change)="imageUpload($event)" accept="image/*"/>
+    </div>
+
+    <ion-item no-padding lines="none" class="item_ shadow_input">
+      <ion-input placeholder="Name" formControlName="name"  class="input_"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="BusinessDataUpdate.controls.name.hasError('required') && BusinessDataUpdate.controls.name.touched">
+      <p class="content">Please Enter Name!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="item_ shadow_input">
+      <ion-input placeholder="Title" formControlName="title"  class="input_"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="BusinessDataUpdate.controls.title.hasError('required') && BusinessDataUpdate.controls.title.touched">
+      <p class="content">Please Enter Title!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="item_ shadow_input">
+      <ion-input placeholder="Licence Number" formControlName="buslicno"  class="input_"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="BusinessDataUpdate.controls.buslicno.hasError('required') && BusinessDataUpdate.controls.buslicno.touched">
+      <p class="content">Please Enter Business Licence Number!</p>
+    </ion-item>
+
+    <div class="div-que">
+      <ion-label class="lbl-head">Is your business registered for GST?</ion-label>
+      <ion-radio-group formControlName="is_registered_gst" (change)="isGstOption()">
+        <ion-item lines="none" class="items-radio">
+          <ion-label class="lbl-radio">Yes</ion-label>
+          <ion-radio slot="start" value="1" mode="md" class="radio_"></ion-radio>
+        </ion-item>
+        <ion-item lines="none" class="items-radio">
+          <ion-label class="lbl-radio">No</ion-label>
+          <ion-radio slot="start" value="2" mode="md" class="radio_"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </div>
+<div *ngIf="BusinessDataUpdate.get('is_registered_gst').value == 1">
+    <ion-item no-padding lines="none" class="item_ top_ shadow_input">
+      <ion-input placeholder="GST Number" maxlength="15" formControlName="gstno"  class="input_"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="BusinessDataUpdate.controls.gstno.hasError('required') && BusinessDataUpdate.controls.gstno.touched">
+      <p class="content">Please Enter GST Number!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="BusinessDataUpdate.get('gstno').errors?.minlength && BusinessDataUpdate.get('gstno').touched">
+      <p class="content">Please Enter Valid GST Number!</p>
+    </ion-item>
+  
+    <ion-item no-padding lines="none" class="item_ shadow_input">
+      <ion-datetime formControlName="mydate" displayFormat="DD-MM-YYYY"  placeholder="GST Registered On" class="date_">
+      </ion-datetime>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="BusinessDataUpdate.controls.mydate.hasError('required') && BusinessDataUpdate.controls.mydate.touched">
+      <p class="content">Please Select Date!</p>
+    </ion-item>
+  </div>
+
+    <ion-item no-padding lines="none" class="item_ shadow_input">
+      <ion-select interface="action-sheet" placeholder="State" formControlName="state"
+        class="dropWidth_" mode="md" [(ngModel)]="selectedstate">
+        <ion-select-option *ngFor="let opt of state" [value]="opt.id">{{opt.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="BusinessDataUpdate.controls.state.hasError('required') && BusinessDataUpdate.controls.state.touched">
+      <p class="content">Please Select State!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="item_ shadow_input">
+      <ion-input placeholder="City" formControlName="city"  class="input_"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="BusinessDataUpdate.controls.city.hasError('required') && BusinessDataUpdate.controls.city.touched">
+      <p class="content">Please Enter City!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="!BusinessDataUpdate.controls.city.hasError('required') && BusinessDataUpdate.controls.city.touched && BusinessDataUpdate.controls.city.hasError('pattern')">
+      <p class="content">Please Enter Only Characters!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="item_ shadow_input">
+      <ion-select interface="action-sheet" placeholder="category" formControlName="category"
+        class="dropWidth_" mode="md" [(ngModel)]="selectedcategory">
+        <ion-select-option *ngFor="let opt of category" [value]="opt.id">{{opt.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="BusinessDataUpdate.controls.state.hasError('required') && BusinessDataUpdate.controls.state.touched">
+      <p class="content">Please Select State!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="item_ shadow_input">
+      <ion-input placeholder="Address" formControlName="adrress"  class="input_"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="BusinessDataUpdate.controls.adrress.hasError('required') && BusinessDataUpdate.controls.adrress.touched">
+      <p class="content">Please Enter Address!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="item_ shadow_input">
+      <ion-input type="tel" (keypress)="numberonly.FnNumberOnly($event)" minlength="6" maxlength="6"
+        pattern="^[0-9]+$" placeholder="Post Code" formControlName="code"  class="input_">
+      </ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="BusinessDataUpdate.controls.code.hasError('required') && BusinessDataUpdate.controls.code.touched">
+      <p class="content">Please Enter Post Code!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="!BusinessDataUpdate.get('code').errors?.pattern && BusinessDataUpdate.get('code').errors?.minlength  &&   BusinessDataUpdate.get('code').touched">
+      <p class="content">Please Enter 6 Digits Post Code!</p>
+    </ion-item>
+
+    <div class="div_btn">
+      <ion-input  formControlName="businessRowId" hidden value=""  class="input_"></ion-input>
+      <ion-button expand="full" shape="round" class="btn_ shadow_btn" (click)="BusinessUpdate()">Submit</ion-button>
+    </div>
+
+  </form>
+
+</ion-content>

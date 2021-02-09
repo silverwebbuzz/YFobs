@@ -1,0 +1,12 @@
+ .bell_{
+      position: relative;
+      .on_{
+        height: 8px;
+        width: 8px;
+        border-radius: 50px;
+        background: green;
+        position: absolute;
+        right: 10px;
+        top: 8px;
+      }
+    }

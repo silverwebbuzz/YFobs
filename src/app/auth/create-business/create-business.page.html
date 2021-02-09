@@ -1,0 +1,66 @@
+<ion-content>
+
+  <div class="div_main">
+    <div class="div_img">
+      <img class="img_" src="../../assets/imgs/logo1.png">
+    </div>
+  </div>
+
+  <form [formGroup]="CreateBusinessForm" class="form_">
+
+    <ion-item no-padding lines="none" class="item_ shadow_input">
+      <ion-input type="text" placeholder="Name" formControlName="name"  class="input_"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="CreateBusinessForm.controls.name.hasError('required') && CreateBusinessForm.controls.name.touched">
+      <p class="content">Please Enter Name!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="item_ shadow_input">
+      <ion-input type="email" placeholder="Email" formControlName="email"  class="input_"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="CreateBusinessForm.controls.email.hasError('required') && CreateBusinessForm.controls.email.touched">
+      <p class="content">Please Enter Email!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="CreateBusinessForm.controls.email.hasError('pattern') && CreateBusinessForm.controls.email.touched">
+      <p class="content">Please Enter Valid Email!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="CreateBusinessForm.controls.email.hasError('incorrect') && CreateBusinessForm.controls.email.touched">
+      <p class="content">Email already exists!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="item_ shadow_input">
+      <ion-input type="text" placeholder="Business Name" formControlName="businessname" required  class="input_"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="CreateBusinessForm.controls.businessname.hasError('required') && CreateBusinessForm.controls.businessname.touched">
+      <p class="content">Please Enter Business Name!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="item_ shadow_input">
+      <ion-select interface="action-sheet" formControlName="businesstype" placeholder="Business Type"
+        class="dropWidth_" mode="md">
+        <ion-select-option *ngFor="let cat of BusinessCategory" [value]="cat.id">{{cat.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="CreateBusinessForm.controls.businesstype.hasError('required') && CreateBusinessForm.controls.businesstype.touched">
+      <p class="content">Please Select Business Type!</p>
+    </ion-item>
+
+    <div class="div_btn">
+      <ion-button expand="block" shape="round" class="btn_ shadow_btn" (click)="fnHome()">Continue</ion-button>
+    </div>
+
+  </form>
+
+</ion-content>

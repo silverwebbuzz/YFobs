@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-button (click)="back()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Notifications</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="isEmpty" *ngIf="notificationArray?.length == 0">
+    <ion-label class="lbl-empty">No Records Found</ion-label>
+  </div>
+
+  <ng-container *ngFor="let opt of notificationArray;let i = index;">
+    <div (click)="notification(opt.link)">
+    <ion-row class="row_list" (click)="markAsRead(i)" [ngClass]="opt.IsRead?'isread':'unread'">
+      <ion-col size="2" class="col_list">
+        <img *ngIf="!opt.image" src="{{user_not_found_place_holder}}" class="img_main" />
+        <img *ngIf="opt.image" src="{{imageUrl}}{{opt.image}}" class="img_main" />
+      </ion-col>
+      <ion-col size="9" class="col_list spc_left">
+        <ion-label class="lbl_title">{{opt.title}}</ion-label>
+        <ion-label class="lbl_date">{{opt.sent_date | date: 'yyyy-MM-dd'}}</ion-label>
+      </ion-col>
+      <ion-col size="1" class="col_list right_">
+        <ion-icon name="chevron-forward" class="img_arrow"></ion-icon>
+      </ion-col>
+    </ion-row>
+    </div>
+  </ng-container>
+
+</ion-content>

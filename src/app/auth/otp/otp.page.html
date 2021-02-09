@@ -1,0 +1,62 @@
+<ion-content>
+
+  <div class="div_OTP">
+    <form [formGroup]="OtpForm" class="form_">
+      <div class="div_otps">
+        <ion-icon name="chatbox-ellipses" class="icon_otp"></ion-icon>
+      </div>
+
+      <ion-label class="lbl_head">OTP Verification</ion-label>
+
+      <ion-label class="lbl_desc">We sent you code to
+        <span class="lbl_">+91 {{str_getmobile}} {{string_getMOBILE}} ****</span>
+      </ion-label>
+
+      <ion-label class="lbl_remain">Attempt Remaining :
+        <span class="lbl_">0{{attemptRemaining}}</span>
+      </ion-label>
+
+      <ion-item no-padding lines="none" class="item_ shadow_input">
+        <ion-icon slot="start" name="keypad" class="icon_"></ion-icon>
+        <ion-input type="number" placeholder="Enter OTP here" class="input_" formControlName="otp"></ion-input>
+      </ion-item>
+
+      <ion-item no-padding lines="none" class="validator-error"
+        *ngIf="OtpForm.controls.otp.hasError('required') && OtpForm.controls.otp.touched">
+        <p class="content">Please Enter Otp!</p>
+      </ion-item>
+
+      <div *ngIf="isOtp == 1">
+        <ion-item no-padding lines="none" class="validator-error">
+          <p class="content">Verification failed</p>
+        </ion-item>
+      </div>
+
+      <div *ngIf="counttime == 0">
+        <ion-label class="lbl_resend">
+          Please wait for one minute to receive OTP <countdown [config]="{ leftTime: 60, format: 'mm:ss' }"
+            (event)="handleEvent($event)" class="lbl_">
+          </countdown>
+        </ion-label>
+      </div>
+
+      <div *ngIf="counttime == 1">
+        <ion-label class="lbl_resend" *ngIf="!sendStatus">If you didn't receive a code!
+          <span class="lbl_" (click)="resendOtp()">Resend OTP </span>
+        </ion-label>
+      </div>
+
+      <!-- <ion-label class="lbl_resend" *ngIf="sendStatus">
+  <span class="lbl_">Sending...</span>
+  </ion-label> -->
+
+      <!-- <ion-label class="lbl_resend" (click)="resendOtp()" *ngIf="!sendStatus">Resend OTP</ion-label>
+  <ion-label class="lbl_resend" *ngIf="sendStatus"></ion-label> -->
+      <div class="div_btn">
+        <ion-button expand="block" shape="round" class="btn_ shadow_btn" (click)="isVerifyOtp()">Verify</ion-button>
+      </div>
+      <ion-label class="lbl_back" (click)="back()">Back</ion-label>
+    </form>
+  </div>
+
+</ion-content>

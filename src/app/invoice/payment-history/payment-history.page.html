@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Payment History</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="Modalclose()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<div class="div_pay">
+  <!-- <ion-label color="primary" class="lbl_head"></ion-label> -->
+  
+  <ion-row class="rows_ border_">
+    <ion-col size="6" class="cols_">
+      <ion-label class="lbls_ bold_">Received Payment</ion-label>
+    </ion-col>
+    <ion-col size="6" class="cols_">
+      <ion-label class="lbls_ right_">Amount</ion-label>
+    </ion-col>
+  </ion-row>
+  <ion-row class="rows_ bg_">
+    <ion-col size="4" class="cols_">
+      <ion-label class="lbls_ bold_">Date</ion-label>
+    </ion-col>
+    <ion-col size="4" class="cols_">
+      <ion-label class="lbls_ center_ bold_">Type</ion-label>
+    </ion-col>
+    <ion-col size="4" class="cols_">
+      <ion-label class="lbls_ right_ bold_">Amount</ion-label>
+    </ion-col>
+  </ion-row>
+  <ion-row class="rows_" *ngFor="let opt of PaymentHistory; let i = index">
+    <ion-col size="4" class="cols_">
+      <ion-label class="lbls_">{{opt.payment_date}}</ion-label>
+    </ion-col>
+    <ion-col size="4" class="cols_">
+      <ion-label class="lbls_ center_">{{ this.PaymentMethods[opt.payment_method] }}</ion-label>
+    </ion-col>
+    <ion-col size="4" class="cols_">
+      <ion-label class="lbls_ right_">₹{{opt.amount}}</ion-label>
+    </ion-col>
+  </ion-row>
+  <ion-row class="rows_" *ngIf="PaymentHistory.length == 0">
+    <ion-col size="12" class="cols_">
+      <ion-label class="lbls_"><strong>Status:</strong> Your invoice is awaiting payment</ion-label>
+    </ion-col>
+  </ion-row>
+  <!-- <div class="div_btns">
+  <ion-button expand="full" class="btns_" (click)="cancel()">Cancel</ion-button>
+  </div> -->
+</div>
+</ion-content>

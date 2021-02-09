@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Dashboard</ion-title>
+    <!-- <ion-buttons slot="end">
+      <ion-button (click)="StartScaning()">
+        <ion-icon name="qr-code-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+    <app-notification-bell slot="end"></app-notification-bell>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="loadData(true, $event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-label class="lbl_stick">Invoice Status</ion-label>
+
+  <div class="divs_">
+    <canvas #pieChart></canvas>
+  </div>
+
+  <ion-label class="lbl_stick">GST</ion-label>
+
+  <div class="divs_">
+    <canvas #barChart></canvas>
+  </div>
+
+  <div class="div_bills" *ngIf="overdues?.length > 0">
+    <ion-label class="lbl_stick">Overdue Invoices</ion-label>
+    <div class="row_bills">
+      <ion-row class="row_">
+        <ion-col size="6" class="col_cust">
+          <ion-label class="lbl_cust specific_">Customer</ion-label>
+        </ion-col>
+        <ion-col size="6" class="col_cust">
+          <ion-label class="lbl_amt specific_">Amount</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let opt of overdues" class="row_">
+        <ion-col size="6" class="col_cust">
+          <ion-label class="lbl_cust">{{opt.customer_name}}</ion-label>
+        </ion-col>
+        <ion-col size="6" class="col_cust">
+          <ion-label class="lbl_amt">{{opt.grand_total | number:'1.2-2'}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+
+  <!-- Create Invoice Button -->
+  <div class="div_fab">
+    <ion-button shape="round" size="large" class="btn_ shadow_btn" (click)="fnCreateInvoice()">
+      <ion-icon name="add-circle" class="btn_icon"></ion-icon>Create Invoice
+    </ion-button>
+  </div>
+</ion-content>

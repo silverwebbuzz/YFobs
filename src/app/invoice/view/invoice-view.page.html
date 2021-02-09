@@ -1,0 +1,124 @@
+<ion-content>
+  <div class="print_" id="printable-area">
+  <ion-row class="head_row">
+    <ion-col size="4" class="head_col" >
+      <img *ngIf="!ActiveBusiness.logo" src="{{defaultPlaceholder}}" class="head_img" />
+      <img *ngIf="ActiveBusiness.logo" [src]="ActiveBusiness.logo_base64" class="head_img"/>
+    </ion-col>
+    <ion-col size="8" class="head_col right_">
+      <ion-label class="lbl_invoice bold_" *ngIf="privew.title != 'null' && privew.title != ''">{{privew.title ? privew.title : ''}}</ion-label>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="add_row border_">
+    <ion-col size="4" class="add_col"></ion-col>
+    <ion-col size="8" class="add_col right_">
+      <ion-label class="lbl_name spc_" *ngIf="ActiveBusiness.name != 'null' && ActiveBusiness.name != ''">{{ActiveBusiness.name ? ActiveBusiness.name : ''}}</ion-label>
+      <ion-label class="lbl_title spc_" *ngIf="ActiveBusiness.title != 'null' && ActiveBusiness.title != ''">{{ActiveBusiness.title ? ActiveBusiness.title : ''}}</ion-label>
+      <ion-label class="lbl_add spc_" *ngIf="ActiveBusiness.address != 'null' && ActiveBusiness.address != ''">{{ActiveBusiness.address ? ActiveBusiness.address : ''}}</ion-label>
+      <!-- <ion-label class="lbl_add spc_">Petrol Pump, S.G Highway, Sola,{{ActiveBusiness.name}}</ion-label> -->
+      <ion-label class="lbl_add spc_">{{ActiveBusiness.city ? ActiveBusiness.city + ',' : ''}} {{state ? state + ',' : ''}} {{ActiveBusiness.country_name ? ActiveBusiness.country_name : ActiveBusiness.country_name}} {{ActiveBusiness.post_code ? ActiveBusiness.post_code : ''}}</ion-label>
+      <ion-label class="lbl_gst spc_" *ngIf="ActiveBusiness.vat_code && ActiveBusiness.vat_code != 'null'">GST No : {{ActiveBusiness.vat_code ? ActiveBusiness.vat_code : ''}}</ion-label>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="add_row">
+    <ion-col size="5" class="add_col">
+      <ion-label class="lbl_bill spc_">Bill To</ion-label>
+      <ion-label class="lbl_add spc_" *ngIf="customer.name != 'null' && customer.name != ''">{{customer.name ? customer.name : ''}}</ion-label>
+      <ion-label class="lbl_add spc_" >{{customer.address ? customer.address + ',' : ''}} {{customer.city ? customer.city : ''}} {{customer_state_id ? customer_state_id + ',' : ''}} {{country}}</ion-label>
+      <ion-label class="lbl_add spc_" *ngIf="customer.phone != 'null' && customer.phone != ''">{{customer.phone ? customer.phone : ''}}</ion-label>
+      <ion-label class="lbl_add spc_" *ngIf="customer.cus_number != 'null' && customer.cus_number != ''">{{customer.cus_number ? customer.cus_number : ''}}</ion-label>
+      <ion-label class="lbl_add spc_" *ngIf="customer.vat_code && customer.vat_code != 'null'">GST No : {{customer.vat_code ? customer.vat_code : ''}}</ion-label>
+    </ion-col>
+    <ion-col size="7" class="add_col right_">
+      <ion-label class="lbl_add spc_">Invoice number : {{privew.number ? privew.number : ''}}</ion-label>
+      <ion-label class="lbl_add spc_">Invoice date: {{privew.date | date: 'yyyy-MM-dd'}}</ion-label>
+      <ion-label class="lbl_add spc_">Due date:{{privew.payment_due | date: 'yyyy-MM-dd'}}</ion-label>
+      <ion-label class="lbl_add spc_" *ngIf="privew.due_limit != 1 ">Within {{privew.due_limit}} days</ion-label>
+      <ion-label class="lbl_add spc_" *ngIf="privew.due_limit == 1 ">On receipt</ion-label>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="row_table">
+    <ion-col size="1" class="col_table bg_ center_ border_R">
+      <ion-label class="lbl_table">#</ion-label>
+    </ion-col>
+    <ion-col size="3" class="col_table bg_ center_ border_R">
+      <ion-label class="lbl_table">Items</ion-label>
+    </ion-col>
+    <ion-col size="3" class="col_table bg_ center_ border_R">
+      <ion-label class="lbl_table">Price</ion-label>
+    </ion-col>
+    <ion-col size="2" class="col_table bg_ center_ border_R">
+      <ion-label class="lbl_table">Qty</ion-label>
+    </ion-col>
+    <ion-col size="3" class="col_table bg_ center_">
+      <ion-label class="lbl_table">Amount</ion-label>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="row_entry border_" *ngFor="let item of ItemData; let i = index">
+    <ion-col size="1" class="col_entry center_">
+      <ion-label class="lbl_entry">{{ i + 1 }}</ion-label>
+    </ion-col>
+    <ion-col size="3" class="col_entry">
+      <ion-label class="lbl_entry">{{item.product_name }} <span *ngIf="item.hsncode">[{{item.hsncode}}]</span>
+        </ion-label>
+    </ion-col>
+    <ion-col size="3" class="col_entry center_">
+      <ion-label class="lbl_entry">{{item.invoice_item_price | number:'2.2' }}</ion-label>
+    </ion-col>
+    <ion-col size="2" class="col_entry center_">
+      <ion-label class="lbl_entry">{{item.qty}}</ion-label>
+    </ion-col>
+    <ion-col size="3" class="col_entry right_">
+      <ion-label class="lbl_entry">{{item.qty * item.invoice_item_price | number:'2.2'}}</ion-label>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="row_footer">
+    <ion-col size="3" class="col_footer"></ion-col>
+    <ion-col size="5" class="col_footer right_">
+      <ion-label class="lbl_footer spc_ bold_">Sub Total</ion-label>
+      <ion-label class="lbl_footer spc_" *ngIf="discount != 0">Discount [{{discount}}]%</ion-label>
+      <ion-label class="lbl_footer spc_" *ngIf="taxName == 'GST' || taxName == 'GST5' || taxName == 'GST12' || taxName == 'GST18' || taxName == 'GST28'">CGST [{{tax / 2}}%]</ion-label>
+      <ion-label class="lbl_footer spc_" *ngIf="taxName == 'GST' || taxName == 'GST5' || taxName == 'GST12' || taxName == 'GST18' || taxName == 'GST28'">SGST [{{tax / 2}}%]</ion-label>
+      <ion-label class="lbl_footer spc_" *ngIf="taxName == 'IGST0' || taxName == 'IGST5' || taxName == 'IGST12' || taxName == 'IGST18' || taxName == 'IGST28'">IGST [{{tax}}%]</ion-label>
+      <ion-label class="lbl_footer spc_ bold_ clr_">Amount Due - Total</ion-label>
+    </ion-col>
+    <ion-col size="4" class="col_footer right_">
+      <ion-label class="lbl_footer spc_">INR {{subTotal | number:'2.2'}}</ion-label>
+      <ion-label class="lbl_footer spc_" *ngIf="discount != 0">INR {{discountrs}}</ion-label>
+      <ion-label class="lbl_footer spc_" *ngIf="taxName == 'GST' || taxName == 'GST5' || taxName == 'GST12' || taxName == 'GST18' || taxName == 'GST28'">INR {{(taxDisplay / 2).toFixed(2)}}</ion-label>
+      <ion-label class="lbl_footer spc_" *ngIf="taxName == 'GST' || taxName == 'GST5' || taxName == 'GST12' || taxName == 'GST18' || taxName == 'GST28'">INR {{(taxDisplay / 2).toFixed(2)}}</ion-label>
+      <ion-label class="lbl_footer spc_" *ngIf="taxName == 'IGST0' || taxName == 'IGST5' || taxName == 'IGST12' || taxName == 'IGST18' || taxName == 'IGST28'">INR {{taxDisplay}}</ion-label>
+      <ion-label class="lbl_footer spc_ clr_">INR {{GrandTotal | number:'2.2'}}</ion-label>
+    </ion-col>
+  </ion-row>
+
+  <div class="div_footer">
+    <ion-label class="lbl_thank spc_ bold_ center_">Thank you!</ion-label>
+    <ion-label class="lbl_sign spc_ center_" [innerHTML]="footer_note"></ion-label>
+    <ion-label class="lbl_create spc_ center_">This Invoice is created by YFOBS</ion-label>
+  </div>
+
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-row class="row_btn">
+    <ion-col size="5" class="col_btn">
+      <ion-button size="large" expand="full" color="light" class="btn_ shadow_btn" (click)="Modalclose()">Close</ion-button>
+    </ion-col>
+    <ion-col size="5" class="col_btn" (click)="sharePdf('share')">
+      <ion-button size="large" expand="full" class="btn_ shadow_btn">Share</ion-button>
+    </ion-col>
+    <ion-col size="2" class="col_btn" (click)="sharePdf('print')">
+      <ion-button size="large" expand="full" color="light" class="btn_ shadow_btn">
+        <ion-icon name="print" color="primary"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

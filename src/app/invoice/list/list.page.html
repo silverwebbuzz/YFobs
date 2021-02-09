@@ -1,0 +1,284 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Invoice</ion-title>
+    <app-notification-bell slot="end"></app-notification-bell>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="invoiceDownload">
+
+  <ion-refresher slot="fixed" (ionRefresh)="loadData(true, $event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <div class="div_seg">
+    <ion-segment [(ngModel)]="reports" scrollable mode="md" class="seg_">
+      <ion-segment-button value="all" class="seg_btn" (click)="tabs('all')">
+        All
+      </ion-segment-button>
+      <ion-segment-button value="paid" class="seg_btn" (click)="tabs('2')">
+        Paid
+      </ion-segment-button>
+      <ion-segment-button value="unpaid" class="seg_btn" (click)="tabs('1')">
+        Unpaid
+      </ion-segment-button>
+      <!-- <ion-segment-button value="draft" class="seg_btn" (click)="tabs('0')">
+        Draft
+      </ion-segment-button> -->
+      <ion-segment-button value="recurring" class="seg_btn" (click)="tabs('3')">
+        Recurring
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="reports">
+
+    <!-- Paid Invoice Tab Start -->
+      <div *ngSwitchCase="'paid'">
+        <ng-container *ngIf="PaidInvoice?.length">
+        <ion-searchbar id="searchValue" (ionChange)="paidsearchBar($event.target.value)" placeholder="Search..." class="search_"></ion-searchbar>
+        <div class="div_list">
+          <div class="div_row" *ngFor="let opt of Invoicelist; let i = index" >
+            <div (click)="edit(opt.id,opt.status)">
+              <ion-row class="row_list" >
+                <ion-col size="5" class="col_list">
+                  <ion-label class="lbl_name">{{opt.customer_name | titlecase}}</ion-label>
+                </ion-col>
+                <ion-col size="7" class="col_list right_">
+                  <ion-label class="lbl_status active_" *ngIf="opt.is_completed == 0 && opt.recurring == '1'">Active</ion-label>
+                  <ion-label class="lbl_status completed_" *ngIf="opt.is_completed == 1 && opt.recurring == '1'">Completed</ion-label>
+                  <ion-label class="lbl_status paid_"  *ngIf="opt.status == 2">Paid</ion-label>
+                </ion-col>
+              </ion-row>
+              <ion-row class="row_list row_">
+                <ion-col size="7" class="col_list">
+                  <ion-label class="lbl_no">Invoice #{{opt.number}}</ion-label>
+                </ion-col>
+                <ion-col size="5" class="col_list right_">
+                  <ion-label class="lbl_date">{{opt.date}}</ion-label>
+                </ion-col>
+              </ion-row>
+              </div>
+              <ion-row class="row_list">
+                <ion-col size="7" class="col_list">
+                  <ion-label class="lbl_total">Total : ₹ {{opt.grand_total}}</ion-label>
+                </ion-col>
+                <ion-col size="5" class="col_list right_">
+                  <ion-icon name="print" class="icon_" (click)="sharePdf(opt.id,'print')"></ion-icon>
+                  <ion-icon name="arrow-redo" class="icon_" (click)="sharePdf(opt.id,'share')"></ion-icon>
+                  <ion-icon name="ellipsis-vertical" (click)="more($event,opt.id,opt.status,opt.is_completed,opt.recurring)" class="more_"></ion-icon>
+                </ion-col>
+              </ion-row>
+            
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="(PaidInvoice?.length == 0 || PaidInvoice == null) && AllInvoice?.length != 0">
+        <div class="isEmpty">
+            <ion-label class="lbl_empty">No Record Found!</ion-label>
+        </div>
+      </ng-container>
+      </div>
+    
+    <!-- Paid Invoice Tab End -->
+
+    <!-- Unpaid Invoice Tab Start -->
+      <div *ngSwitchCase="'unpaid'">
+      <ng-container *ngIf="UnpaidInvoice?.length">
+        <ion-searchbar id="searchValue" (ionChange)="unpaidsearchBar($event.target.value)" placeholder="Search..." class="search_"></ion-searchbar>
+        <div class="div_list">
+          <div class="div_row" *ngFor="let opt of Invoicelist; let i = index" >
+            <div (click)="edit(opt.id,opt.status)">
+            <ion-row class="row_list" >
+              <ion-col size="5" class="col_list">
+                <ion-label class="lbl_name">{{opt.customer_name | titlecase}}</ion-label>
+              </ion-col>
+              <ion-col size="7" class="col_list right_">
+                <ion-label class="lbl_status active_" *ngIf="opt.is_completed == 0 && opt.recurring == '1'">Active</ion-label>
+                <ion-label class="lbl_status completed_" *ngIf="opt.is_completed == 1 && opt.recurring == '1'">Completed</ion-label>
+                <ion-label class="lbl_status unpaid_" *ngIf="opt.status == 1">Unpaid</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row class="row_list row_">
+              <ion-col size="7" class="col_list">
+                <ion-label class="lbl_no">Invoice #{{opt.number}}</ion-label>
+              </ion-col>
+              <ion-col size="5" class="col_list right_">
+                <ion-label class="lbl_date">{{opt.date}}</ion-label>
+              </ion-col>
+            </ion-row>
+            </div>
+            <ion-row class="row_list">
+              <ion-col size="7" class="col_list">
+                <ion-label class="lbl_total">Total : ₹ {{opt.grand_total}}</ion-label>
+              </ion-col>
+              <ion-col size="5" class="col_list right_">
+                <ion-icon name="print" class="icon_" (click)="sharePdf(opt.id,'print')"></ion-icon>
+                <ion-icon name="arrow-redo" class="icon_" (click)="sharePdf(opt.id,'share')"></ion-icon>
+                <ion-icon name="ellipsis-vertical" (click)="more($event,opt.id,opt.status,opt.is_completed,opt.recurring)" class="more_"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </ng-container>
+        <ng-container *ngIf="(UnpaidInvoice?.length == 0 || UnpaidInvoice == null) && AllInvoice?.length != 0">
+          <div class="isEmpty">
+              <ion-label class="lbl_empty">No Record Found!</ion-label>
+          </div>
+        </ng-container>
+      </div>
+    
+   
+    <!-- Unpaid Invoice Tab Start -->
+
+    <!-- Draft Invoice Tab Start -->
+    <!-- <div *ngSwitchCase="'draft'">
+      <ion-searchbar id="searchValue" (ionChange)="draftsearchBar($event.target.value)" placeholder="Search..." class="search_"></ion-searchbar>
+      <div class="div_list">
+        <div class="div_row" *ngFor="let opt of Invoicelist; let i = index">
+          <ion-row class="row_list" (click)="edit(opt.id)">
+            <ion-col size="5" class="col_list">
+              <ion-label class="lbl_name">{{opt.customer_name | titlecase}}</ion-label>
+            </ion-col>
+            <ion-col size="7" class="col_list right_">
+              <ion-label class="lbl_status draft_" *ngIf="opt.status == 0">Draft</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="row_list row_">
+            <ion-col size="7" class="col_list">
+              <ion-label class="lbl_no">Invoice #{{opt.number}}</ion-label>
+            </ion-col>
+            <ion-col size="5" class="col_list right_">
+              <ion-label class="lbl_date">{{opt.date}}</ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="row_list">
+            <ion-col size="7" class="col_list">
+              <ion-label class="lbl_total">Total : ₹ {{opt.grand_total}}</ion-label>
+            </ion-col>
+            <ion-col size="5" class="col_list right_">
+              <ion-icon name="print" class="icon_" (click)="sharePdf(opt.id,'print')"></ion-icon>
+              <ion-icon name="arrow-redo" class="icon_" (click)="sharePdf(opt.id,'share')"></ion-icon>
+              <ion-icon name="ellipsis-vertical" (click)="more($event,opt.id,opt.status)" class="more_"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </div> -->
+    <!-- Draft Invoice Tab Start -->
+
+    <!-- Recurring Invoice Tab Start -->
+      <div *ngSwitchCase="'recurring'">
+        <ng-container *ngIf="RecurringInvoice?.length">
+        <ion-searchbar id="searchValue" (ionChange)="recurringsearchBar($event.target.value)" placeholder="Search..." class="search_"></ion-searchbar>
+        <div class="div_list">
+          <div class="div_row" *ngFor="let opt of Invoicelist; let i = index">
+            <div (click)="edit(opt.id,opt.status)">
+            <ion-row class="row_list" >
+              <ion-col size="5" class="col_list">
+                <ion-label class="lbl_name">{{opt.customer_name | titlecase}}</ion-label>
+              </ion-col>
+              <ion-col size="7" class="col_list right_">
+                <ion-label class="lbl_status active_" *ngIf="opt.is_completed == 0 && opt.recurring == '1'">Active</ion-label>
+                <ion-label class="lbl_status completed_" *ngIf="opt.is_completed == 1 && opt.recurring == '1'">Completed</ion-label>
+                <ion-label class="lbl_status recurring_" *ngIf="opt.status == 3 || opt.recurring == '1'">Recurring</ion-label>
+              </ion-col>
+            </ion-row>
+            <ion-row class="row_list row_">
+              <ion-col size="7" class="col_list">
+                <ion-label class="lbl_no">Invoice #{{opt.number}}</ion-label>
+              </ion-col>
+              <ion-col size="5" class="col_list right_">
+                <ion-label class="lbl_date">{{opt.date}}</ion-label>
+              </ion-col>
+            </ion-row>
+            </div>
+            <ion-row class="row_list">
+              <ion-col size="7" class="col_list">
+                <ion-label class="lbl_total">Total : ₹ {{opt.grand_total}}</ion-label>
+              </ion-col>
+              <ion-col size="5" class="col_list right_">
+                <ion-icon name="print" class="icon_" (click)="sharePdf(opt.id,'print')"></ion-icon>
+                <ion-icon name="arrow-redo" class="icon_" (click)="sharePdf(opt.id,'share')"></ion-icon>
+                <ion-icon name="ellipsis-vertical" (click)="more($event,opt.id,opt.status,opt.is_completed,opt.recurring)" class="more_"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+        </ng-container>
+
+          <ng-container *ngIf="(RecurringInvoice?.length == 0 || RecurringInvoice == null) && AllInvoice?.length != 0">
+            <div class="isEmpty">
+                <ion-label class="lbl_empty">No Record Found!</ion-label>
+            </div>
+          </ng-container>
+      </div>
+    <!-- Recurring Invoice Tab Start -->
+
+    <!-- All Invoice Tab Start -->
+    <div *ngSwitchCase="'all'">
+      <ng-container *ngIf="AllInvoice?.length">
+      <ion-searchbar id="searchValue" (ionChange)="allsearchBar($event.target.value)" placeholder="Search..." class="search_"></ion-searchbar>
+      <div class="div_list">
+        <div class="div_row" *ngFor="let opt of Invoicelist; let i = index">
+          <div (click)="edit(opt.id,opt.status)">
+          <ion-row class="row_list" >
+            <ion-col size="5" class="col_list">
+              <ion-label class="lbl_name">{{opt.customer_name | titlecase}}</ion-label>
+            </ion-col>
+            <ion-col size="7" class="col_list right_">
+              <ion-label class="lbl_status active_" *ngIf="opt.is_completed == 0 && opt.recurring == 1">Active</ion-label>
+              <ion-label class="lbl_status completed_" *ngIf="opt.is_completed == 1 && opt.recurring == 1">Completed</ion-label>
+              <ion-label class="lbl_status draft_" *ngIf="opt.status == 0">Draft</ion-label>
+              <ion-label class="lbl_status unpaid_" *ngIf="opt.status == 1">Unpaid</ion-label>
+              <ion-label class="lbl_status paid_" *ngIf="opt.status == 2">Paid </ion-label>
+              <!-- <ion-label class="lbl_status" *ngIf="opt.status == 3 || opt.recurring == 1">Recurring </ion-label> -->
+            </ion-col>
+          </ion-row>
+          <ion-row class="row_list row_">
+            <ion-col size="7" class="col_list">
+              <ion-label class="lbl_no">Invoice #{{opt.number}} <span *ngIf="opt.recurring == 1" class="spn_">Recurring</span></ion-label>
+            </ion-col>
+            <ion-col size="5" class="col_list right_">
+              <ion-label class="lbl_date">{{opt.date}}</ion-label>
+            </ion-col>
+          </ion-row>
+        </div>
+          <ion-row class="row_list">
+            <ion-col size="7" class="col_list">
+              <ion-label class="lbl_total">Total : ₹ {{opt.grand_total}}</ion-label>
+            </ion-col>
+            <ion-col size="5" class="col_list right_">
+              <ion-icon name="print" class="icon_" (click)="sharePdf(opt.id,'print')"></ion-icon>
+              <ion-icon name="arrow-redo" class="icon_" (click)="sharePdf(opt.id,'share')"></ion-icon>
+              <ion-icon name="ellipsis-vertical" (click)="more($event,opt.id,opt.status,opt.is_completed,opt.recurring)" class="more_"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+    </ng-container>
+    </div>
+    <!-- All Invoice Tab Start -->
+
+    <!-- Create Invoice Button -->
+  <div class="div_fab">
+    <ion-button shape="round" size="large" class="btn_ shadow_btn" (click)="fnCreateInvoice()">
+      <ion-icon name="add-circle" class="btn_icon"></ion-icon>Create Invoice
+    </ion-button>
+  </div>
+
+  </div>
+
+  <div class="isEmptyImg" *ngIf="(AllInvoice?.length == 0 || AllInvoice == null) && !InvoiceLoader">
+    <img src="assets/imgs/NoInvoice.png" class="img_profile" />
+  </div>
+
+  <div *ngIf="shareInvoiceId" class="new_view">
+    <app-invoice-view [InvoiceId]="shareInvoiceId" [Share]="1"></app-invoice-view>
+  </div>
+  
+</ion-content>

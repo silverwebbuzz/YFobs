@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Receive Payment</ion-title>
+    <ion-buttons slot="start">
+      <ion-button expand="block" (click)="back()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="div_top">
+    <ion-label color="primary" class="lbl_head bottom_">
+      <span class="spn_head">Customer Name: </span>
+      <span class="spn_details">{{selectedInvoice.customer_name ? selectedInvoice.customer_name : ''}}</span>
+    </ion-label>
+    <ion-row class="row_top bottom_">
+      <ion-col size="6" class="col_top">
+        <ion-label class="lbl_">
+          <span class="spn_head">Invoice No: </span>
+          <span class="spn_details">{{selectedInvoice.number ? selectedInvoice.number : '' }}</span>
+        </ion-label>
+      </ion-col>
+      <ion-col size="6" class="col_top">
+        <ion-label class="lbl_ right_">
+          <span class="spn_head">Invoice Date: </span>
+          <span class="spn_details">{{selectedInvoice.date ? selectedInvoice.date : '' }}</span>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row_top">
+      <ion-col size="6" class="col_top">
+        <ion-label class="lbl_">
+          <span class="spn_head">Invoice Amount: </span>
+          <span class="spn_details">{{selectedInvoice.grand_total ? selectedInvoice.grand_total : '' }}</span>
+        </ion-label>
+      </ion-col>
+      <ion-col size="6" class="col_top">
+        <ion-label class="lbl_ right_">
+          <span class="spn_head">Due Amount: </span>
+          <span class="spn_details">{{dueAmount ? dueAmount : 0 }}</span>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <form [formGroup]="RecordPay" class="form_">
+
+    <ion-item no-padding lines="none" class="item_ shadow_input">
+      <ion-datetime type="date" formControlName="payment_date" displayFormat="DD-MM-YYYY" placeholder="Payment Date"
+        class="date_">
+      </ion-datetime>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="RecordPay.controls.payment_date.hasError('required') && RecordPay.controls.payment_date.touched">
+      <p class="content">Please Select Date!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="item_ shadow_input">
+      <ion-datetime type="date" formControlName="due_date" displayFormat="DD-MM-YYYY" placeholder="Due Date"
+        class="date_">
+      </ion-datetime>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="item_ shadow_input">
+      <ion-input type="text" placeholder="Due Amount" formControlName="amount" value="" autofocus="true" class="input_">
+      </ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="RecordPay.controls.amount.hasError('required') && RecordPay.controls.amount.touched">
+      <p class="content">Please Enter Due Amount!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="item_ shadow_input">
+      <ion-select interface="action-sheet" placeholder="Payment Method" formControlName="payment_method"
+        class="dropWidth_" mode="md">
+        <ion-select-option value="1">Bank payment</ion-select-option>
+        <ion-select-option value="2">Cash</ion-select-option>
+        <ion-select-option value="3">Cheque</ion-select-option>
+        <ion-select-option value="4">Credit card</ion-select-option>
+        <ion-select-option value="5">Paypal</ion-select-option>
+        <ion-select-option value="6">Others</ion-select-option>
+
+      </ion-select>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="RecordPay.controls.payment_method.hasError('required') && RecordPay.controls.payment_method.touched">
+      <p class="content">Please Select Payment Method!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="item_ shadow_input">
+      <ion-input tyep="text" placeholder="Note" formControlName="note" class="input_"></ion-input>
+    </ion-item>
+
+    <div class="div_btn">
+      <ion-button expand="block" shape="round" class="btn_ shadow_btn" (click)="submit()">Add Payment</ion-button>
+    </div>
+
+  </form>
+
+</ion-content>

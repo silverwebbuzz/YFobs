@@ -1,0 +1,242 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>New Invoice</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="loadData(true, $event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <form [formGroup]="invoiceForm">
+
+    <ion-item no-padding lines="none" class="items_" (click)="businessProfile()">
+      <ion-label class="lbl_name">{{ActiveBusiness ? ActiveBusiness.name : ''}}</ion-label>
+      <ion-icon color="primary" slot="end" name="create-sharp" class="icon_"></ion-icon>
+    </ion-item>
+
+    <div class="div_top">
+      <ion-row class="row_top">
+        <ion-col size="6" class="col_top right_ bottom_">
+          <ion-input type="text" formControlName="invoice" placeholder="Tax - Invoice" class="input_"></ion-input>
+
+          <ion-item no-padding lines="none" class="validator-error"
+            *ngIf="invoiceForm.controls.invoice.hasError('required') && invoiceForm.controls.invoice.touched">
+            <p class="content">Please Enter Invoice!</p>
+          </ion-item>
+
+        </ion-col>
+        <ion-col size="6" class="col_top">
+          <ion-input type="text" formControlName="invoiceNo" placeholder="Invoice number" class="input_"></ion-input>
+
+          <ion-item no-padding lines="none" class="validator-error"
+            *ngIf="invoiceForm.controls.invoiceNo.hasError('required') && invoiceForm.controls.invoiceNo.touched">
+            <p class="content">Please Enter Invoice No.!</p>
+          </ion-item>
+
+        </ion-col>
+      </ion-row>
+      <ion-row class="row_top">
+        <ion-col size="6" class="col_top right_">
+          <ion-input type="text" formControlName="proName" placeholder="Project name" class="input_"></ion-input>
+
+        </ion-col>
+        <ion-col size="6" class="col_top">
+          <ion-input type="text" formControlName="psNo" placeholder="P.O/S.O number" class="input_"></ion-input>
+
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <!-- <li-ionic4-datepicker style="margin-left: 50px;" [(ngModel)]="mydate" [inputDateConfig]="datePickerObj"></li-ionic4-datepicker> -->
+
+    <ion-row class="row_date">
+      <ion-col size="6" class="col_date right_">
+        <ion-item no-padding lines="none" class="item_drop">
+          <ion-datetime displayFormat="DD-MM-YYYY" formControlName="invoiceDate" placeholder="Invoice Date"
+            class="date_"></ion-datetime>
+        </ion-item>
+
+        <ion-item no-padding lines="none" class="validator-error"
+          *ngIf="invoiceForm.controls.invoiceDate.hasError('required') && invoiceForm.controls.invoiceDate.touched">
+          <p class="content">Please Select Invoice Date!</p>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6" class="col_date">
+        <ion-item no-padding lines="none" class="item_drop">
+          <ion-select interface="action-sheet" formControlName="due_limit" placeholder="Payment Due" class="dropWidth_"
+            mode="md" [(ngModel)]="get_due_limit">
+            <ion-select-option value="1">On receipt</ion-select-option>
+            <ion-select-option value="3">Within 03 days</ion-select-option>
+            <ion-select-option value="7">Within 07 days</ion-select-option>
+            <ion-select-option value="15">Within 15 days</ion-select-option>
+            <ion-select-option value="30">Within 30 days</ion-select-option>
+            <ion-select-option value="45">Within 45 days</ion-select-option>
+            <ion-select-option value="60">Within 60 days</ion-select-option>
+            <ion-select-option value="90">Within 90 days</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item no-padding lines="none" class="validator-error"
+          *ngIf="invoiceForm.controls.due_limit.hasError('required') && invoiceForm.controls.due_limit.touched">
+          <p class="content">Please Select Due Date!</p>
+        </ion-item>
+
+      </ion-col>
+    </ion-row>
+
+    <div class="div_cust" *ngFor="let customer of CustomerData">
+      <ion-item lines="none" class="item_cust">
+        <ion-label slot="start" class="lbl_cust bold_">{{customer.name}}</ion-label>
+        <ion-label class="lbl_cust rights_">{{customer.phone}}</ion-label>
+      </ion-item>
+      <ion-button fill="clear" size="small" shape="round" class="btn" (click)="fnredirectcustomer(customer,i)">
+        <ion-icon name="create-sharp" class="icon_btn"></ion-icon>
+      </ion-button>
+    </div>
+
+    <div *ngIf="CustomerData == ''">
+      <ion-item no-padding lines="full" class="item_btn" (click)="fnredirectcustomer('')">
+        <ion-icon color="primary" name="add-circle-outline" class="icons_"></ion-icon>
+        <ion-label color="primary" class="lbl_add">Add Customer</ion-label>
+      </ion-item>
+    </div>
+
+    <ion-item no-padding lines="none" class="validator-error" *ngIf="submitted && this.CustomerData ==  0">
+      <p class="content">Please select customers.</p>
+    </ion-item>
+
+
+    <div *ngFor="let item of ItemData;let i = index" class="div_items">
+
+      <ion-item lines="none" class="item_items">
+        <ion-label slot="start" class="lbls_ bold_" color="primary">{{item.product_name}} <span
+            *ngIf="item.hsncode">[{{item.hsncode}}]</span>
+        </ion-label>
+        <ion-label class="lbls_ rights_" color="primary">{{item.qty * item.invoice_item_price | number:'2.2'}}
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none" class="item_items bottoms_">
+        <ion-label slot="start" class="lbls_">Item Subtotal</ion-label>
+        <ion-label class="lbls_ rights_">{{item.qty}} * ₹ {{item.invoice_item_price | number:'2.2-2'}}
+          <!-- = {{item.qty * item.price | number:'2.2'}} -->
+        </ion-label>
+      </ion-item>
+      <ion-button class="btn" fill="clear" size="small" shape="round" (click)="deleteItem(i)">
+        <ion-icon name="close-sharp" class="icon_btn"></ion-icon>
+      </ion-button>
+
+    </div>
+
+    <div *ngIf="ItemData == ''">
+      <ion-item no-padding lines="none" class="item_btn" (click)="fnredirectitem()">
+        <ion-icon color="primary" name="add-circle-outline" class="icons_"></ion-icon>
+        <ion-label color="primary" class="lbl_add">Add Item</ion-label>
+      </ion-item>
+    </div>
+
+    <ion-item no-padding lines="none" class="validator-error" *ngIf="submitted && this.ItemData ==  0">
+      <p class="content">Please select items.</p>
+    </ion-item>
+
+    <div *ngIf="ItemData != ''" class="div_btns">
+      <ion-row class="row_btns">
+        <ion-col size="3" class="col_btns">
+          <ion-button expand="block" fill="outline" size="small" class="btns_" (click)="fnredirectitem()">Add Item
+          </ion-button>
+        </ion-col>
+        <ion-col size="4" class="col_btns auto_">
+          <ion-label class="lbl_qty rights_ bold_">Total Qty : {{itemqty}}</ion-label>
+        </ion-col>
+        <ion-col size="5" class="col_btns auto_">
+          <ion-label class="lbl_qty rights_ bold_">Total : {{subTotal | number:'2.2-2'}}
+          </ion-label>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div class="div_bottom">
+      <ion-row class="row_bottom">
+        <ion-col size="4" class="col_bottom">
+          <ion-label class="lbl_">Subtotal</ion-label>
+        </ion-col>
+        <ion-col size="8" class="col_bottom">
+          <ion-input type="number" formControlName="subTotal" disabled value="{{subTotal}}" class="inputs_ bold_ size_">
+          </ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row class="row_bottom">
+        <ion-col size="4" class="col_bottom">
+          <ion-label class="lbl_">Discount&nbsp;%</ion-label>
+        </ion-col>
+        <ion-col size="4" class="col_bottom right_">
+          <ion-input type="number" formControlName="discount" (ionChange)="loadAmount($event,'discount')"
+            [(ngModel)]="discount" placeholder="0" class="inputs_ bold_ size_ color_">
+          </ion-input>
+        </ion-col>
+        <!-- <ion-col size="4" class="col_bottom" *ngIf="!discountrs">
+          <ion-input type="number" formControlName="discAmt" disabled  class="inputs_">₹
+          </ion-input>
+        </ion-col> -->
+
+        <ion-col size="4" class="col_bottom">
+          <ion-input type="number" formControlName="discAmt" disabled value="{{discountrs}}" class="inputs_">₹
+          </ion-input>
+        </ion-col>
+
+      </ion-row>
+      <ion-row class="row_bottom">
+        <ion-col size="4" class="col_bottom">
+          <ion-label class="lbl_">Tax&nbsp;%</ion-label>
+        </ion-col>
+        <ion-col size="4" class="col_bottom right_">
+          <ion-select mode="md" formControlName="tax" interface="action-sheet" (ionChange)="loadAmount($event,'tax')"
+            class="inputs_ select_">
+            <ion-select-option *ngFor="let opt of taxValueList" [value]="opt.id">{{opt.name}}[{{opt.rate}}]%
+            </ion-select-option>
+          </ion-select>
+        </ion-col>
+        <ion-col size="4" class="col_bottom">
+          <ion-input type="number" formControlName="taxAmt" disabled value="{{taxDisplay}}" class="inputs_ bold_ size_">
+            ₹</ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row class="row_bottom">
+        <ion-col size="8" class="col_bottom">
+          <ion-label class="lbl_total">Total Amount</ion-label>
+        </ion-col>
+        <!-- <ion-col size="4" class="col_bottom" *ngIf="!grandtotle">
+          <ion-input type="number" formControlName="amt" disabled  class="inputs_"></ion-input>
+        </ion-col> -->
+
+        <ion-col size="4" class="col_bottom">
+          <ion-input type="number" formControlName="amt" disabled value="{{GrandTotal}}" class="inputs_"></ion-input>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <ion-item lines="full" class="items_Note">
+      <ion-textarea rows="3" placeholder="Notes" formControlName="footer_note" class="input_Note"></ion-textarea>
+    </ion-item>
+  </form>
+
+</ion-content>
+
+<ion-footer>
+
+  <div class="div_fab">
+    <ion-button expand="full" size="large" shape="round" class="btn_ shadow_btn" (click)="InvoiceAdd()">Save and
+      Preview
+    </ion-button>
+  </div>
+
+</ion-footer>

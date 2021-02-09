@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1053547774111",
+    "firebase_url": "https://yfobs-in-app.firebaseio.com",
+    "project_id": "yfobs-in-app",
+    "storage_bucket": "yfobs-in-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053547774111:android:625d45eac12009a322e2aa",
+        "android_client_info": {
+          "package_name": "com.com.yfobs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1053547774111-eig5hfu4e8iojloml3hrd0jk1lafa1s2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtt9foNQys9t2gP_udQDG0oJ8w1ioI5Gc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1053547774111-eig5hfu4e8iojloml3hrd0jk1lafa1s2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>GST1 Reports</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="div_seg">
+    <ion-segment [(ngModel)]="tabReports" scrollable mode="md" class="seg_">
+      <ion-segment-button value="paid" class="seg_btn">
+        Paid
+      </ion-segment-button>
+      <ion-segment-button value="unpaid" class="seg_btn">
+        Unpaid
+      </ion-segment-button>
+      <ion-segment-button value="all" class="seg_btn">
+        All
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  
+  
+    <div [ngSwitch]="tabReports">
+
+      <div *ngSwitchCase="'paid'">
+        <ng-container *ngIf="this.paidReports.reports?.length">
+          <app-gstpaid [allReports]="this.gstReports.paid"></app-gstpaid>
+        </ng-container>
+        <ng-container *ngIf="this.paidReports.reports?.length == 0">
+          <div class="isEmpty">
+            <ion-label class="lbl_empty">No Record Found!</ion-label>
+          </div>
+        </ng-container>
+      </div>
+
+      <div *ngSwitchCase="'unpaid'">
+        <ng-container *ngIf="this.gstReports.unpaid.reports?.length">
+          <app-gstunpaid [allReports]="this.gstReports.unpaid"></app-gstunpaid>
+        </ng-container>
+        <ng-container *ngIf="this.gstReports.unpaid.reports?.length == 0">
+          <div class="isEmpty">
+            <ion-label class="lbl_empty">No Record Found!</ion-label>
+          </div>
+        </ng-container>
+      </div>
+
+      <div *ngSwitchCase="'all'">
+        <ng-container *ngIf="this.gstReports.all.reports?.length">
+          <app-gstall [allReports]="this.gstReports.all"></app-gstall>
+        </ng-container>
+        <ng-container *ngIf="this.gstReports.all.reports?.length == 0">
+          <div class="isEmpty">
+            <ion-label class="lbl_empty">No Record Found!</ion-label>
+          </div>
+        </ng-container>
+      </div>
+
+    </div>
+
+
+</ion-content>

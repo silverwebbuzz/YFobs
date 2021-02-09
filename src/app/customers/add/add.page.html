@@ -1,0 +1,169 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>New Customer</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="custData" class="form_">
+
+    <ion-item no-padding lines="none" class="items_ shadow_input">
+      <ion-input type="text" placeholder="Customer Name" formControlName="name" class="input_"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="custData.controls.name.hasError('required') && custData.controls.name.touched">
+      <p class="content">Please Enter Customer Name!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="items_ shadow_input">
+      <ion-input type="email" placeholder="Email" formControlName="email" class="input_"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="custData.controls.email.hasError('required') && custData.controls.email.touched">
+      <p class="content">Please Enter Email!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="custData.controls.email.hasError('pattern') && custData.controls.email.touched">
+      <p class="content">Please Enter Valid Email!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="items_ shadow_input">
+      <ion-input type="tel" placeholder="Phone Number" formControlName="phone" class="input_">
+      </ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="custData.controls.phone.hasError('required') && custData.controls.phone.touched">
+      <p class="content">Please Enter Phone number!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="!custData.get('phone').errors?.pattern && custData.get('phone').errors?.minlength && custData.get('phone').touched">
+      <p class="content">Please Enter Valid Phone number!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="items_ shadow_input">
+      <ion-input type="text" placeholder="Address" formControlName="address" class="input_"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="custData.controls.address.hasError('required') && custData.controls.address.touched">
+      <p class="content">Please Enter Address!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="items_ shadow_input">
+      <ion-select interface="action-sheet" placeholder="Country" formControlName="country" class="dropWidth_" mode="md"
+        (ionChange)="stateList($event)" [(ngModel)]="selectedcountry">
+        <ion-select-option *ngFor="let opt of country" [value]="opt.id">{{opt.name | uppercase}}</ion-select-option>
+        <!-- <ion-select-option value="0">India</ion-select-option> -->
+      </ion-select>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="custData.controls.country.hasError('required') && custData.controls.country.touched">
+      <p class="content">Please Select Country!</p>
+    </ion-item>
+
+    <div *ngIf="country_name == 'INR'">
+      <ion-item no-padding lines="none" class="items_ shadow_input">
+        <ion-select interface="action-sheet" placeholder="State" formControlName="state" class="dropWidth_" mode="md">
+          <ion-select-option *ngFor="let opt of state" [value]="opt.id">{{opt.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item no-padding lines="none" class="validator-error"
+        *ngIf="custData.controls.state.hasError('required') && custData.controls.state.touched">
+        <p class="content">Please Select State!</p>
+      </ion-item>
+    </div>
+
+    <ion-item no-padding lines="none" class="items_ shadow_input">
+      <ion-input placeholder="City" formControlName="city" class="input_"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="custData.controls.city.hasError('required') && custData.controls.city.touched">
+      <p class="content">Please Enter City!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="!custData.controls.city.hasError('required') && custData.controls.city.touched && custData.controls.city.hasError('pattern')">
+      <p class="content">Please Enter Only Characters!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="items_ shadow_input">
+      <ion-input type="tel" placeholder="Post Code" formControlName="postal_code" class="input_">
+      </ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="custData.controls.postal_code.hasError('required') && custData.controls.postal_code.touched">
+      <p class="content">Please Enter Post Code!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="!custData.get('postal_code').errors?.pattern && custData.get('postal_code').errors?.minlength && custData.get('postal_code').touched">
+      <p class="content">Please Enter 6 Digits Post Code!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="items_ shadow_input">
+      <ion-input type="text" placeholder="Currency" formControlName="currency" class="input_" readonly="true">
+      </ion-input>
+    </ion-item>
+
+    <!-- <ion-item no-padding lines="none" class="items_ shadow_input">
+      <ion-select interface="action-sheet" placeholder="Currency" formControlName="currency"
+        class="dropWidth_" mode="md" [(ngModel)]="selected_currency">
+        <ion-select-option *ngFor="let opt of currency" [value]="opt.currency_code">{{opt.currency_code}} - {{opt.currency_name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="custData.controls.currency.hasError('required') && custData.controls.currency.touched">
+      <p class="content">Please Select Currency!</p>
+    </ion-item> -->
+
+    <ion-item no-padding lines="none" class="items_ shadow_input">
+      <ion-input type="text" placeholder="Business Number" formControlName="cus_number" class="input_">
+      </ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="custData.controls.cus_number.hasError('required') && custData.controls.cus_number.touched">
+      <p class="content">Please Enter Business Number!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="items_ shadow_input">
+      <ion-input type="text" minlength="15" maxlength="15" placeholder="GST Number" formControlName="vat_code"
+        class="input_"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="custData.controls.vat_code.hasError('required') && custData.controls.vat_code.touched">
+      <p class="content">Please Enter GST Number!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="!custData.get('vat_code').errors?.pattern && custData.get('vat_code').errors?.minlength && custData.get('vat_code').touched">
+      <p class="content">Please Enter Valid GST Number!</p>
+    </ion-item>
+
+  </form>
+
+</ion-content>
+
+<ion-footer>
+  <div class="div_btn">
+    <ion-button expand="full" size="large" class="btn_ shadow_btn" (click)="save()">Save
+    </ion-button>
+  </div>
+</ion-footer>

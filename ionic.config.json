@@ -1,0 +1,7 @@
+{
+  "name": "New Yfobs",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,196 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+@font-face {
+  font-family: "SFProText";
+  src: url("../src/assets/fonts/SFProText-Regular.ttf");
+}
+
+ion-toolbar {
+  --border-width: 0px !important;
+}
+
+ion-title {
+  padding-inline-start: 12%;
+  padding-inline-end: 12%;
+  color: var(--ion-color-primary);
+  font-size: 16px;
+}
+
+.validator-error {
+  --background: transparent;
+  color: #d44848;
+  --min-height: 18px;
+  width: 85%;
+  margin: 0 auto;
+  margin-top: 8px !important;
+
+  .content {
+    margin-bottom: 0px;
+    margin-top: 0px;
+    font-size: 12px;
+  }
+}
+
+.toast_ {
+  --background: var(--ion-color-secondary);
+  --border-radius: 8px;
+  --box-shadow: 0 4px 4px var(--ion-color-medium);
+  font-size: 12px;
+  color: var(--ion-color-dark);
+}
+
+// .payHistory_{}
+
+.alert-title {
+  color: var(--ion-color-dark) !important;
+  font-size: 16px !important;
+}
+.alert-message {
+  color: var(--ion-color-dark) !important;
+  font-size: 12px !important;
+}
+.alert-button {
+  height: 40px !important;
+  font-size: 14px !important;
+}
+
+.datetime-placeholder {
+  color: var(--ion-color-medium-shade) !important;
+}
+
+.loader_ {
+  color: var(--ion-color-dark);
+}
+.action-sheet-button {
+  color: var(--ion-color-dark) !important;
+  font-size: 14px !important;
+  height: 44px !important;
+}
+.popover_ {
+  --width: 148px;
+}
+
+// .otp_{}
+
+.search_ {
+  position: absolute;
+  top: 48px;
+  --border-radius: 0;
+  padding-inline-start: 8px;
+  padding-inline-end: 8px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  height: 40px;
+  --background: var(--ion-color-light);
+  --box-shadow: 0 4px 4px var(--ion-color-light-shade);
+  --border-radius: 8px;
+
+  .searchbar-input {
+    padding: 0px 44px !important;
+    font-size: 14px !important;
+    color: var(--ion-color-dark) !important;
+  }
+  .searchbar-search-icon {
+    padding: 0px 8px !important;
+    color: var(--ion-color-primary) !important;
+  }
+}
+.autocomplete-container {
+  width: 84%;
+  margin: 0 auto;
+  margin-top: 16px !important;
+  margin-bottom: 20px !important;
+  box-shadow: 0px 0px !important;
+}
+.autocomplete-container .input-container input {
+  font-size: 14px !important;
+  color: var(--ion-color-dark) !important;
+  background-color: var(--ion-color-light) !important;
+  box-shadow: 0 4px 4px var(--ion-color-light-shade) !important;
+  border-radius: 24px !important;
+  padding: 0px 12px 0px 24px !important;
+  height: 44px !important;
+}
+.material-icons {
+  display: none !important;
+}
+.autocomplete-container .suggestions-container {
+  width: 90% !important;
+  position: unset !important;
+  margin: 0 auto !important;
+  border-radius: 8px !important;
+}
+.autocomplete-container .suggestions-container ul {
+  max-height: 200px !important;
+  margin-top: 4px !important;
+  border-radius: 8px !important;
+}
+.div_data {
+  padding: 4px 10px !important;
+  border-bottom: 0.5px solid var(--ion-color-light);
+  .name_data {
+    padding: 4px 4px !important;
+    font-size: 12px !important;
+    color: var(--ion-color-dark) !important;
+  }
+  .phn_data {
+    padding: 0px 4px !important;
+    font-size: 12px !important;
+    color: var(--ion-color-dark) !important;
+  }
+}
+.shadow_input {
+  box-shadow: 0 4px 4px var(--ion-color-light-shade);
+}
+.shadow_btn {
+  --box-shadow: 0 4px 4px var(--ion-color-medium);
+}
+.item-search-form.ios.hydrated {
+  height: auto;
+}
+.item-search-form .dropdown-content {
+  position: absolute;
+  z-index: 999 !important;
+}
+.item-search-form .position-relative {
+  width: 84%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.pageimg {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  text-align: center;
+  right: 0;
+  .img {
+    height: 30px;
+    border-radius: 10px;
+  }
+}

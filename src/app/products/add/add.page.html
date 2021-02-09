@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>New Product</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="prodData" class="form_">
+
+    <ion-item no-padding lines="none" class="items_ shadow_input">
+      <ion-input type="text" placeholder="Product Name" formControlName="name" class="input_"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="prodData.controls.name.hasError('required') && prodData.controls.name.touched">
+      <p class="content">Please Enter Product Name!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="items_ shadow_input">
+      <ion-input type="number" placeholder="Price" formControlName="price" class="input_"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="prodData.controls.price.hasError('required') && prodData.controls.price.touched">
+      <p class="content">Please Enter Price!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="items_ shadow_input">
+      <ion-input type="number" placeholder="HSN Code" formControlName="hsncode" class="input_"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="prodData.controls.hsncode.hasError('required') && prodData.controls.hsncode.touched">
+      <p class="content">Please Enter HSN Code!</p>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="items_ shadow_input">
+      <ion-input type="text" placeholder="Product Details" formControlName="details" class="input_"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding lines="none" class="validator-error"
+      *ngIf="prodData.controls.details.hasError('required') && prodData.controls.details.touched">
+      <p class="content">Please Enter Product Details!</p>
+    </ion-item>
+
+  </form>
+
+</ion-content>
+<ion-footer>
+  <div class="div_btn">
+    <ion-button expand="full" size="large" class="btn_ shadow_btn" (click)="save()">Save
+    </ion-button>
+  </div>
+</ion-footer>

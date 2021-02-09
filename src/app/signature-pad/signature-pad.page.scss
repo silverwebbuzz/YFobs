@@ -1,0 +1,24 @@
+ion-content{
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+
+  .div_pad{
+      border: double var(--ion-color-primary);
+      signature-pad{
+          width: 100% !important;
+          canvas{
+              width: 100% !important;
+          }
+      }
+  }
+  .row_ {
+      .col_ {
+        .btn_ {
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
+    }
+}
